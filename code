@@ -1,3 +1,4 @@
+/*
 import interfascia.*;
 
 import g4p_controls.*;
@@ -11,7 +12,7 @@ import game2dai.graph.*;
 import game2dai.maths.*;
 import game2dai.steering.*;
 import game2dai.utils.*;
-
+*/
 // Card setup \\
 
 class Cards
@@ -21,118 +22,158 @@ class Cards
   int cardX = 0;
   int cardY = 0;
   int faceValue = 0;
-  int myPoints = 0;
-  
+  int myPoints =0;
   String[] cardName = {
-    "Unknown.png","ClubsA.jpg", "Clubs2.jpg", "Clubs3.jpg", "Clubs4.jpg", "Clubs5.jpg",
-    "Clubs6.jpg", "Clubs7.jpg", "Clubs8.jpg", "Clubs9.jpg", "Clubs10.jpg",
-    "ClubsJ.jpg", "ClubsQ.jpg","ClubsK.jpg", "DiamondA.jpg", "Diamond2.jpg",
-    "Diamond3.jpg", "Diamond4.jpg","Diamond5.jpg", "Diamond6.jpg","Diamond7.jpg",
-    "Diamond8.jpg", "Diamond9.jpg", "Diamond10.jpg", "DiamondJ.jpg","DiamondQ.jpg",
-    "DiamondK.jpg", "HeartsA.jpg", "Hearts2.jpg","Hearts3.jpg","Hearts4.jpg", "Hearts5.jpg",
-    "Hearts6.jpg","Hearts7.jpg","Hearts8.jpg","Hearts9.jpg","Hearts10.jpg","HeartsJ.jpg",
-    "HeartsQ.jpg", "HeartsK.jpg", "SpadesA.jpg", "Spades2.jpg","Spades3.jpg","Spades4.jpg",
-    "Spades5.jpg","Spades6.jpg","Spades7.jpg","Spades8.jpg","Spades9.jpg","Spades10.jpg",
-    "SpadesJ.jpg","SpadesQ.jpg","SpadesK.jpg" //"Back.jpg"
+    "Unknown.png","ClubsA.png", "Clubs2.png", "Clubs3.png", "Clubs4.png", "Clubs5.png",
+    "Clubs6.png", "Clubs7.png", "Clubs8.png", "Clubs9.png", "Clubs10.png",
+    "ClubsJ.png", "ClubsQ.png","ClubsK.png", "DiamondA.png", "Diamond2.png",
+    "Diamond3.png", "Diamond4.png","Diamond5.png", "Diamond6.png","Diamond7.png",
+    "Diamond8.png", "Diamond9.png", "Diamond10.png", "DiamondJ.png","DiamondQ.png",
+    "DiamondK.png", "HeartsA.png", "Hearts2.png","Hearts3.png","Hearts4.png", "Hearts5.png",
+    "Hearts6.png","Hearts7.png","Hearts8.png","Hearts9.png","Hearts10.png","HeartsJ.png",
+    "HeartsQ.png", "HeartsK.png", "SpadesA.png", "Spades2.png","Spades3.png","Spades4.png",
+    "Spades5.png","Spades6.png","Spades7.png","Spades8.png","Spades9.png","Spades10.png",
+    "SpadesJ.png","SpadesQ.png","SpadesK.png"
   };
   
+  //for(int i = 0; i <cardName.length;i++){
+   // cardName[i] = new image;
+  //}
   //each set should have 13 and thus 1pt for each
   
-  Cards(int x, int y, int fv, int mp)
+  Cards(int x,int y,int fv, int mp)
   {
     cardX = x;
     cardY = y;
     faceValue = fv;
     myPoints = mp;
+    
+
   }
+  
   void display(){
     cardImage = loadImage(cardName[show]);
-    image(cardImage, cardX,cardY);
+    image(cardImage,cardX,cardY);
   }
   
   void setX(int newX){
     cardX = newX;
     show = faceValue;
   }
+/*
+  void splitDeck(){
+    if (playerAmt ==2){
+      String[] deck = new String[27];
+      String[] deck2 = new String[27];
+      for(int i = 0; i<= deck.length; i++){
+        deck[i] = cardName[i];
+      }
+      for(int j = 0; j<=deck2.length;j++){
+        deck2[j] = cardName[j];
+      }
+    }
+  }
+  void shuffle(){
+  //int rand = 0;
+  int pick;
+  String temp;
+  String[] a = new String[cardName.length];
+  for(int i = 0; i< cardName.length; i++){
+    pick = (int)random(cardName.length);
+    temp = cardName[i];
+    cardName[i] = a[pick];
+    cardName[pick] = temp;
+  }
+  }*/
   int getPoints(){
-    return(myPoints);
+    return (myPoints);
   }
 }
 
 
 // Gameplay \\
 
+
+// global variables\\
 PFont myFont;
 PFont usrInput;
 PFont title;
 //int[] y;
-int[] y = new int[50];
-int[] fv = new int[50];
-int[] points = new int[100];
-int currentPoint;
-int[] x = new int[50];
+int[] y = new int[52];
+int[] fv = new int[52];
+int[] points = new int[52];
+int currentPoint = 1;
+int[] x = new int[52];
 Cards[] myCard = new Cards[52];
 
-int leftPoint, rightPoint;
-int leftDeck, rightDeck;
+int leftPoint = 0; 
+int rightPoint = 0;
+int leftDeck= 1;
+int rightDeck =0;
 int sSizeX, sSizeY, stage;
 PImage startscreen;
 String typing = "";
+//Cards card;
 
 
 void setup()
 {
+  
+  //card = new Cards();
+  
   // Menu \\
   stage = 1;
-  sSizeX = 1000;
-  sSizeY = 1000;
+  sSizeX = 1500;
+  sSizeY = 1500;
   //size(sSizeX,sSizeY);
   startscreen = loadImage("R7mghNM.jpg");
   image(startscreen,0,0,sSizeX,sSizeY);
-  title =createFont("Verdana",20,true);
+  title =createFont("Verdana",40,true);
   
   usrInput = createFont("Verdana",20); // user input
   
   //setup\\
-  background(150,89);
+  background(150,89,83);
+  int myY = 25;
+  int myX1 = 1200;
+  int myX2 = 10;
   
   
-  size(1000,1000);
+  size(1500,1500);
   //fullScreen();
   fill(255,0,0);
   myFont = createFont("Verdana", 40,true);
-  
-  shuffle();
-  shuffle();
-  
-  if (playerAmt == 2){
-    int myY = 600;
-    int p2y = 200;
-    int myX1 =150;
-    int p2X = 150;
-    for(int i = 0;i<=52;i++){
-      y[i] = myY;
-      fv[i] = i+1;
-      
-      points[i] = currentPoint;
-      currentPoint++;
-      if(currentPoint >){
-        currentPoint = 1;
-      }
-      if(i%2==0){
-        x[i] = myX1;
-        myY+=2;
-        myX1+=2;
-        p2X+=2;
-      }else{
-        x[i] = p2X;
-      }
+  /*
+  card.shuffle();
+  card.shuffle();
+  card.splitDeck();
+  */
+  // determines the face value and how the cards are moving as they appeear 3d\\
+  for (int i = 0; i<52; i++){
+    y[i] = myY;
+    fv[i] = i+1;
+    
+    points[i] = currentPoint;
+    currentPoint++;
+    if(currentPoint > 13){
+      currentPoint = 1;
+    }
+    if(i % 2 == 0){
+      x[i] = myX1;
+      myY+=2;
+      myX1+=2;
+      myX2+=2;
+    }else{
+      x[i] = myX2;
     }
   }
-  
-  for(int i = 0; i < 20; i++){
+  shuffle();
+  shuffle();
+  // makes the deck and sets the values\\
+  for(int i =0; i <52; i++){
     myCard[i] = new Cards(x[i],y[i],fv[i],points[i]);
   }
+      
 }
 
 int playerAmt;
@@ -145,7 +186,7 @@ void draw(){
     image(startscreen,0,0,sSizeX,sSizeY);
     textAlign(CENTER);
     textFont(title);
-    text("Space War", 100,150);
+    text("Space War", 150,150);
     text("Click S to start",500,470);
     if (keyPressed){
       if(key == 's' || key == 'S')
@@ -154,7 +195,24 @@ void draw(){
       }
     }
   }
-  if (stage == 2){
+  // transition stage for game mode\\
+  if (stage ==2){
+    image(startscreen,0,0,sSizeX,sSizeY);
+    textAlign(CENTER);
+    textFont(usrInput);
+    text("Which Game mode?",500,150);
+    text("Click R for regular 'space war' and S for Space war",500,300);
+    if(keyPressed){
+      if(key == 'r' || key == 'R'){
+        stage = 5;
+      }
+      if(key == 's' || key == 'S'){
+        //stage == 3;
+      }
+    }
+  }
+    // asks how many players for space war\\
+  if (stage == 3){
     image(startscreen,0,0,sSizeX,sSizeY);
     textAlign(CENTER);
     textFont(usrInput);
@@ -162,23 +220,23 @@ void draw(){
     text("How many Players? (from 2 to 6 players)" + typing,500,150);
     if(keyPressed){
       if(key =='2'){
-        stage = 3;
+        stage = 5;
         playerAmt = 2;
       } else if(key == '3'){
-        stage = 3;
+        stage = 5;
         playerAmt = 3;
       } else if(key =='4'){
-        stage = 3;
+        stage = 5;
         playerAmt =4;
       }else if (key == '5'){
-        stage =3;
+        stage =5;
         playerAmt =5;
       }else if(key =='6'){
-        stage =3;
+        stage =5;
         playerAmt =6;
       }
     } 
-  }
+  }/*
   if (stage == 3){
     image(startscreen,0,0,sSizeX,sSizeY);
     textAlign(CENTER);
@@ -195,56 +253,45 @@ void draw(){
     "If a player gets one spaceship, they have the option to “lock” it by sacrificing one card above 7 or an ace.", 400,100);
     text("click any key to continue",100,100);
     if (keyPressed){
-      stage =4;
+      stage =5;
     }
-  }
-  
-  if (stage == 4){
+  }*/
+  // transition to actual gameplay\\
+  if (stage == 5){
     background(0);
-    for(int i = 0; i<20; i++){
+    textFont(usrInput);
+    text(leftPoint,75,400);
+    text(rightPoint,1250,400);
+    rect(500,700,400,100);
+    for(int i = 0;i <52;i++){
       myCard[i].display();
     }
-    
-    if(leftDeck >19)
+    // determines who wins once the deck has been finished\\
+    if(leftDeck>52)
     {
-      if(leftPoint>rightPoint)
-      {
-        text("Left Wins",250,350);
-      }else if(leftPoint<rightPoint)
-      {
+      if(leftPoint>rightPoint){
+        text("left wins",250,350);
+      }
+      else if(leftPoint<rightPoint){
         text("right wins",250,350);
       }
-      else{
-        //war();
+      else
+      {
         text("tie",250,350);
       }
     }
   }
-    
-}
-
-void war(){
-  
-  
-  
-  
-  
-}
-
-void Deckset(){
-  if (playerAmt == 2){
-    
+} 
 
 
-  }
-}
-    
-    
-void mouseClicked(){
-  if(mouseX<400 && mouseX>200 && mouseY<500 && mouseY>400)
+
+
+// where the mouse is going to be clicked so the cards can play\\
+void mouseClicked(){//500,700,400,100
+  if(mouseX >500 && mouseX<700 && mouseY>100 && mouseY<400)
   {
-    myCard[leftDeck].setX(190);
-    myCard[rightDeck].setX(310);
+    myCard[leftDeck].setX(300);
+    myCard[rightDeck].setX(700);
     
     if(myCard[leftDeck].getPoints()>myCard[rightDeck].getPoints()){
       leftPoint++;
@@ -257,12 +304,14 @@ void mouseClicked(){
     }
   }
 
+
+// shuffles cards\\
 void shuffle(){
   int temp = 0;
   int tempPoint = 0;
   int rand = 0;
-  for(int i = 0; i <20;i++){
-    rand = int(random(0,20));
+  for(int i = 0; i <52;i++){
+    rand = int(random(0,52));
     temp = fv[i];
     tempPoint = points[i];
     fv[i] = fv[rand];
@@ -271,4 +320,3 @@ void shuffle(){
     points[rand] = tempPoint;
   }
 }
-    
